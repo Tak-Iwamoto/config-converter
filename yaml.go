@@ -6,34 +6,35 @@ import (
 	"reflect"
 	"strconv"
 
+	"github.com/pelletier/go-toml"
 	"gopkg.in/yaml.v2"
 )
 
-func JsonToYml(j []byte) ([]byte, error) {
-	var jObj interface{}
+func YamlToJson(y []byte) ([]byte, error) {
+	var yamlObj interface{}
 
-	err := yaml.Unmarshal(j, &jObj)
+	err := yaml.Unmarshal(y, &yamlObj)
 	if err != nil {
 		return nil, err
 	}
-	return yaml.Marshal(j)
+
+	jsonObj, err := convertToJson(yamlObj)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return json.Marshal(jsonObj)
 }
 
-func YmlToJson(y []byte) ([]byte, error) {
-	var yObj interface{}
-
-	err := yaml.Unmarshal(y, &yObj)
+func YamlToToml(y []byte) ([]byte, error) {
+	var yamlObj interface{}
+	err := yaml.Unmarshal(y, &yamlObj)
 	if err != nil {
 		return nil, err
 	}
 
-	jObj, err := convertToJson(yObj)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return json.Marshal(jObj)
+	return toml.Marshal(yamlObj)
 }
 
 func convertToJson(yObj interface{}) (interface{}, error) {
