@@ -7,7 +7,7 @@ type Case struct {
 	output string
 }
 
-func TestParseYml(t *testing.T) {
+func TestYamlToJson(t *testing.T) {
 	cases := []Case{
 		{"a: a\n",
 			`{"a":"a"}`,
@@ -33,7 +33,7 @@ func TestParseYml(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		result, err := YmlToJson([]byte(c.input))
+		result, err := YamlToJson([]byte(c.input))
 		if err != nil {
 			t.Errorf("Failed to convert %s, input %s, err: %v,", "YmlToJson", c.input, err)
 		}

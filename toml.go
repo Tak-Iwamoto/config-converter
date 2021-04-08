@@ -4,22 +4,23 @@ import (
 	"encoding/json"
 
 	"github.com/pelletier/go-toml"
+	"gopkg.in/yaml.v2"
 )
 
 func TomlToJson(t []byte) ([]byte, error) {
-	var jObj interface{}
-	if err := toml.Unmarshal(t, &jObj); err != nil {
+	var jsonObj interface{}
+	if err := toml.Unmarshal(t, &jsonObj); err != nil {
 		return nil, err
 	}
 
-	return json.Marshal(jObj)
+	return json.Marshal(jsonObj)
 }
 
-func JsonToToml(j []byte) ([]byte, error) {
-	var tObj interface{}
-	if err := json.Unmarshal(j, &tObj); err != nil {
+func TomlToYaml(t []byte) ([]byte, error) {
+	var yamlObj interface{}
+	if err := toml.Unmarshal(t, &yamlObj); err != nil {
 		return nil, err
 	}
 
-	return toml.Marshal(tObj)
+	return yaml.Marshal(yamlObj)
 }
