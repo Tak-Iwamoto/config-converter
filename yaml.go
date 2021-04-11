@@ -34,7 +34,13 @@ func YamlToToml(y []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	return toml.Marshal(yamlObj)
+	jsonObj, err := convertToJson(yamlObj)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return toml.Marshal(jsonObj)
 }
 
 func convertToJson(yObj interface{}) (interface{}, error) {

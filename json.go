@@ -19,9 +19,9 @@ func JsonToToml(j []byte) ([]byte, error) {
 func JsonToYaml(j []byte) ([]byte, error) {
 	var jsonObj interface{}
 
-	err := yaml.Unmarshal(j, &jsonObj)
+	err := json.Unmarshal(j, &jsonObj)
 	if err != nil {
 		return nil, err
 	}
-	return yaml.Marshal(j)
+	return yaml.Marshal(jsonObj)
 }
